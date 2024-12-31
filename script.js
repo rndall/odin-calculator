@@ -48,7 +48,7 @@ const allClear = () => {
 
 const setNumberValues = () => {
 	const parts = prevDisplay.innerText.split(operator);
-	[firstVal, secondVal] = [+parts[0], +parts[1].slice(0, -1)];
+	[firstVal, secondVal] = [parts[0], parts[1].slice(0, -1)];
 };
 
 const populateDisplay = (button) => {
@@ -61,7 +61,7 @@ const populateDisplay = (button) => {
 			setNumberValues();
 
 			if (firstVal && operator && secondVal) {
-				currDisplay.textContent = operate(operator, firstVal, secondVal);
+				currDisplay.textContent = operate(operator, +firstVal, +secondVal);
 				operator = firstVal = secondVal = null;
 			}
 		}
