@@ -1,3 +1,4 @@
+const display = document.querySelector("#display");
 const prevDisplay = document.querySelector("#previous");
 const currDisplay = document.querySelector("#current");
 const buttons = document.querySelectorAll("button");
@@ -45,6 +46,11 @@ const allClear = () => {
 	defaultCurrDisplay();
 };
 
+const setNumberValues = () => {
+	const parts = prevDisplay.innerText.split(operator);
+	[firstVal, secondVal] = [parts[0], parts[1].slice(0, -1)];
+};
+
 const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
@@ -52,10 +58,12 @@ const populateDisplay = (button) => {
 	if (digit === "=") {
 		if (prevDisplay.textContent) {
 			prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+			setNumberValues();
 		}
 	} else if (isCurrDisplayClear() && !isOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
+		operator = digit;
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
 		defaultCurrDisplay();
 	} else {
