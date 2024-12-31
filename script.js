@@ -49,7 +49,11 @@ const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
 
-	if (isCurrDisplayClear() && !isOperator) {
+	if (digit === "=") {
+		if (prevDisplay.textContent) {
+			prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		}
+	} else if (isCurrDisplayClear() && !isOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
