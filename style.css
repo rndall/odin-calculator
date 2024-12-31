@@ -37,7 +37,6 @@ body {
 }
 
 #display {
-	text-align: end;
 	flex: 100%;
 	align-self: center;
 	font-size: 2rem;
@@ -47,7 +46,11 @@ body {
 	border-radius: 1rem;
 	margin-bottom: .5rem;
 	font-weight: 600;
-	min-height: 85px;
+	min-height: 101px;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	justify-content: space-between;
 }
 
 #previous {
