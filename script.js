@@ -61,8 +61,12 @@ const populateDisplay = (button) => {
 			setNumberValues();
 
 			if (firstVal && operator && secondVal) {
-				currDisplay.textContent = operate(operator, +firstVal, +secondVal);
-				operator = firstVal = secondVal = null;
+				if (operator === "÷" && secondVal === "0") {
+					currDisplay.textContent = "nuh uh";
+				} else {
+					currDisplay.textContent = operate(operator, +firstVal, +secondVal);
+					operator = firstVal = secondVal = null;
+				}
 			}
 		}
 	} else if (digit === "AC") {
