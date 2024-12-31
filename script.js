@@ -40,6 +40,11 @@ const defaultCurrDisplay = () => {
 	currDisplay.textContent = defaultVal;
 };
 
+const allClear = () => {
+	defaultPrevDisplay();
+	defaultCurrDisplay();
+};
+
 const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
