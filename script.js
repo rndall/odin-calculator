@@ -3,9 +3,9 @@ const prevDisplay = document.querySelector("#previous");
 const currDisplay = document.querySelector("#current");
 const buttons = document.querySelectorAll("button");
 
-let operator;
-let firstVal;
-let secondVal;
+let operator = null;
+let firstVal = null;
+let secondVal = null;
 const defaultVal = "0";
 currDisplay.textContent = defaultVal;
 
