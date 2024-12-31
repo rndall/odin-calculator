@@ -8,6 +8,7 @@ let firstVal = null;
 let secondVal = null;
 const defaultVal = "0";
 currDisplay.textContent = defaultVal;
+let isPrevOperator = false;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -44,6 +45,7 @@ const defaultCurrDisplay = () => {
 const allClear = () => {
 	defaultPrevDisplay();
 	defaultCurrDisplay();
+	isPrevOperator = false;
 };
 
 const setNumberValues = () => {
@@ -67,17 +69,23 @@ const populateDisplay = (button) => {
 					currDisplay.textContent = operate(operator, +firstVal, +secondVal);
 					operator = firstVal = secondVal = null;
 				}
+
+				isPrevOperator = false;
 			}
 		}
 	} else if (digit === "AC") {
 		allClear();
-	} else if (isCurrDisplayClear() && !isOperator) {
+	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
 		operator = digit;
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
-	} else if (prevDisplay.textContent.at(-1)) {
+		if (!isPrevOperator) {
+			isPrevOperator = !isPrevOperator;
+		}
+	} else if (isPrevOperator) {
 		currDisplay.textContent = digit;
+		isPrevOperator = !isPrevOperator;
 	} else {
 		currDisplay.textContent += digit;
 	}
