@@ -32,6 +32,14 @@ const operate = (operator, a, b) => {
 
 const isCurrDisplayClear = () => currDisplay.textContent === defaultVal;
 
+const defaultPrevDisplay = () => {
+	prevDisplay.textContent = "";
+};
+
+const defaultCurrDisplay = () => {
+	currDisplay.textContent = defaultVal;
+};
+
 const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
