@@ -33,10 +33,12 @@ const operate = (operator, a, b) => {
 const isCurrDisplayClear = () => currDisplay.textContent === defaultVal;
 
 const populateDisplay = (button) => {
+	const digit = button.textContent;
+
 	if (isCurrDisplayClear() && !button.classList.contains("operator")) {
-		currDisplay.textContent = button.textContent;
+		currDisplay.textContent = digit;
 	} else {
-		currDisplay.textContent += button.textContent;
+		currDisplay.textContent += digit;
 	}
 };
 
