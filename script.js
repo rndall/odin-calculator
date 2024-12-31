@@ -1,6 +1,11 @@
+const prevDisplay = document.querySelector("#previous");
+const currDisplay = document.querySelector("#current");
+
 let operator;
 let firstVal;
 let secondVal;
+const defaultVal = 0;
+currDisplay.textContent = defaultVal;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
