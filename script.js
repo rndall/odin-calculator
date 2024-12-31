@@ -60,6 +60,8 @@ const populateDisplay = (button) => {
 			prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
 			setNumberValues();
 		}
+	} else if (digit === "AC") {
+		allClear();
 	} else if (isCurrDisplayClear() && !isOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
