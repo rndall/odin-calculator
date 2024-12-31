@@ -59,6 +59,11 @@ const populateDisplay = (button) => {
 		if (prevDisplay.textContent) {
 			prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
 			setNumberValues();
+
+			if (firstVal && operator && secondVal) {
+				currDisplay.textContent = operate(operator, firstVal, secondVal);
+				operator = firstVal = secondVal = null;
+			}
 		}
 	} else if (digit === "AC") {
 		allClear();
@@ -76,10 +81,5 @@ const populateDisplay = (button) => {
 for (const button of buttons) {
 	button.addEventListener("click", () => {
 		populateDisplay(button);
-
-		if (firstVal && operator && secondVal) {
-			currDisplay.textContent = operate(operator, firstVal, secondVal);
-			operator = firstVal = secondVal = null;
-		}
 	});
 }
