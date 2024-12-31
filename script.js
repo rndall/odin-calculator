@@ -74,5 +74,10 @@ const populateDisplay = (button) => {
 for (const button of buttons) {
 	button.addEventListener("click", () => {
 		populateDisplay(button);
+
+		if (firstVal && operator && secondVal) {
+			currDisplay.textContent = operate(operator, firstVal, secondVal);
+			operator = firstVal = secondVal = null;
+		}
 	});
 }
