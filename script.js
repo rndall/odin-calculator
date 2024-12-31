@@ -34,8 +34,9 @@ const isCurrDisplayClear = () => currDisplay.textContent === defaultVal;
 
 const populateDisplay = (button) => {
 	const digit = button.textContent;
+	const isOperator = button.classList.contains("operator");
 
-	if (isCurrDisplayClear() && !button.classList.contains("operator")) {
+	if (isCurrDisplayClear() && !isOperator) {
 		currDisplay.textContent = digit;
 	} else {
 		currDisplay.textContent += digit;
