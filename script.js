@@ -51,6 +51,9 @@ const populateDisplay = (button) => {
 
 	if (isCurrDisplayClear() && !isOperator) {
 		currDisplay.textContent = digit;
+	} else if (isOperator) {
+		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		defaultCurrDisplay();
 	} else {
 		currDisplay.textContent += digit;
 	}
