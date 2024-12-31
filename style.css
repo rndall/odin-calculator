@@ -1,0 +1,77 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+p {
+	margin: 0;
+}
+
+body {
+	margin: 0;
+	font-family: sans-serif;
+	min-height: 100dvh;
+	display: flex;
+	background-color: #f0ebd8;
+	color: white;
+}
+
+#calculator {
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 20rem;
+	font-size: 1.25rem;
+	font-weight: 500;
+	background-color: #1d2d44;
+	border: 2px solid #748cab;
+	padding: 1.5rem;
+	border-radius: 1.5rem;
+	gap: 0.75rem;
+	justify-content: center;
+}
+
+#display {
+	text-align: end;
+	flex: 100%;
+	align-self: center;
+	font-size: 2rem;
+	background-color: #748cab;
+	margin: 0;
+	padding: 1.5rem .875rem;
+	border-radius: 1rem;
+	margin-bottom: .5rem;
+	font-weight: 600;
+	min-height: 85px;
+}
+
+#previous {
+	font-size: 0.875rem;
+	opacity: 0.8;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+	background-color: #3e5c76;
+	border-radius: 1rem;
+	padding: 0;
+	border: 1px solid hsl(208, 31%, 28%);
+	flex: 0 1;
+	min-width: 58px;
+	height: 58px;
+}
+
+button:hover {
+	background-color: hsl(208, 31%, 40%);
+}
+
+.two {
+	flex: 1 0;
+	min-width: 40%;
+}
