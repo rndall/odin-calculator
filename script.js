@@ -76,7 +76,8 @@ const populateDisplay = (button) => {
 	} else if (isOperator) {
 		operator = digit;
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
-		defaultCurrDisplay();
+	} else if (prevDisplay.textContent.at(-1)) {
+		currDisplay.textContent = digit;
 	} else {
 		currDisplay.textContent += digit;
 	}
