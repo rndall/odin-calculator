@@ -65,7 +65,7 @@ const displayResult = () => {
 		setNumberValues();
 
 		if (firstVal && operator && secondVal) {
-			if (operator === "÷" && secondVal === "0") {
+			if (operator === "÷" && +secondVal === 0) {
 				currDisplay.textContent = "nuh uh";
 			} else {
 				currDisplay.textContent = +operate(
@@ -73,8 +73,8 @@ const displayResult = () => {
 					+firstVal,
 					+secondVal,
 				).toFixed(6);
-				operator = firstVal = secondVal = null;
 			}
+			operator = firstVal = secondVal = null;
 
 			isPrevOperator = false;
 			period.disabled = false;
@@ -89,7 +89,7 @@ const populateDisplay = (button) => {
 	const isOperator = button.classList.contains("operator");
 
 	if (digit === ".") {
-		if (isPrevEquals) {
+		if (isPrevEquals || currDisplay.textContent === "nuh uh") {
 			defaultPrevDisplay();
 			currDisplay.textContent = "0.";
 		} else if (
@@ -120,26 +120,38 @@ const populateDisplay = (button) => {
 		if (operator && !isPrevOperator) {
 			displayResult();
 		}
-		operator = digit;
-		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		// if (currDisplay.textContent !== "nuh uh") {
+		// 	operator = digit;
+		// 	prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		// }
 		if (!isPrevOperator) {
-			isPrevOperator = !isPrevOperator;
+			isPrevOperator = true;
 		}
 		isPrevEquals = false;
 		period.disabled = false;
+
+		if (currDisplay.textContent !== "nuh uh") {
+			operator = digit;
+			prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		}
 	} else if (isPrevOperator) {
-		if (prevDisplay.innerHTML.split("<")[0] === currDisplay.textContent) {
+		if (currDisplay.textContent === "nuh uh") {
+			defaultPrevDisplay();
+			currDisplay.textContent = digit;
+		} else if (
+			prevDisplay.innerHTML.split("<")[0] === currDisplay.textContent
+		) {
 			currDisplay.textContent = digit;
 		} else {
 			currDisplay.textContent += digit;
 		}
 		isPrevOperator = !isPrevOperator;
 	} else {
-		if (!checkForPeriod()) {
-			period.disabled = false;
-		} else if (isPrevEquals) {
+		if (isPrevEquals) {
 			allClear();
 			currDisplay.textContent = "";
+		} else if (!checkForPeriod()) {
+			period.disabled = false;
 		}
 		currDisplay.textContent += digit;
 	}
