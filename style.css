@@ -74,11 +74,15 @@ button:hover {
 	background-color: hsl(208, 31%, 40%);
 }
 
+button:disabled {
+	background-color: hsl(208, 31%, 20%);
+}
+
+button:active {
+	background-color: hsl(208, 31%, 50%);
+}
+
 .two {
 	flex: 1 0;
 	min-width: 40%;
-}
-
-button:disabled {
-  background-color: hsl(208, 31%, 20%);
 }
