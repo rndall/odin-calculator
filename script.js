@@ -84,6 +84,9 @@ const populateDisplay = (button) => {
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
+		if (operator) {
+			displayResult(digit);
+		}
 		operator = digit;
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
 		if (!isPrevOperator) {
