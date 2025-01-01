@@ -55,9 +55,9 @@ const setNumberValues = () => {
 	[firstVal, secondVal] = [parts[0], parts[1].split("<")[0]];
 };
 
-const displayResult = (digit) => {
+const displayResult = () => {
 	if (prevDisplay.textContent) {
-		prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>=</span>`;
 		setNumberValues();
 
 		if (firstVal && operator && secondVal) {
@@ -78,14 +78,14 @@ const populateDisplay = (button) => {
 	const isOperator = button.classList.contains("operator");
 
 	if (digit === "=") {
-		displayResult(digit);
+		displayResult();
 	} else if (digit === "AC") {
 		allClear();
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
 		if (operator) {
-			displayResult(digit);
+			displayResult();
 		}
 		operator = digit;
 		prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
