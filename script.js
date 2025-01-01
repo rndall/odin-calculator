@@ -82,7 +82,9 @@ const populateDisplay = (button) => {
 	const isOperator = button.classList.contains("operator");
 
 	if (digit === "=") {
-		displayResult();
+		if (operator) {
+			displayResult();
+		}
 	} else if (digit === "AC") {
 		allClear();
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
