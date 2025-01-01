@@ -49,8 +49,10 @@ const allClear = () => {
 };
 
 const setNumberValues = () => {
-	const parts = prevDisplay.innerText.split(operator);
-	[firstVal, secondVal] = [parts[0], parts[1].slice(0, -1)];
+	const parts = prevDisplay.innerHTML.split(
+		`<span style="margin-inline: 4px">${operator}</span>`,
+	);
+	[firstVal, secondVal] = [parts[0], parts[1].split("<")[0]];
 };
 
 const populateDisplay = (button) => {
