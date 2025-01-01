@@ -11,6 +11,7 @@ const defaultVal = "0";
 currDisplay.textContent = defaultVal;
 let isPrevOperator = false;
 let isPrevEquals = false;
+let isNumsEqual = false;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -34,14 +35,14 @@ const operate = (operator, a, b) => {
 	}
 };
 
-const isCurrDisplayClear = () => currDisplay.textContent === defaultVal;
+const isCurrDisplayClear = () => currDisplay.textContent === "0";
 
 const defaultPrevDisplay = () => {
 	prevDisplay.textContent = "";
 };
 
 const defaultCurrDisplay = () => {
-	currDisplay.textContent = defaultVal;
+	currDisplay.textContent = "0";
 };
 
 const allClear = () => {
@@ -82,7 +83,7 @@ const displayResult = () => {
 	}
 };
 
-const checkForPeriod = () => currDisplay.textContent.includes(".");
+const checkForPeriod = (text) => text.includes(".");
 
 const populateDisplay = (button) => {
 	const digit = button.textContent;
@@ -101,6 +102,7 @@ const populateDisplay = (button) => {
 		}
 		isPrevEquals = false;
 		button.disabled = true;
+		isNumsEqual = false;
 	} else if (isPrevEquals && !isOperator && button.disabled) {
 		allClear();
 		isPrevEquals = false;
@@ -114,16 +116,26 @@ const populateDisplay = (button) => {
 		}
 	} else if (digit === "AC") {
 		allClear();
+	} else if (digit === "CE") {
+		const backspace = currDisplay.textContent.slice(0, -1);
+
+		if (!checkForPeriod(backspace)) {
+			period.disabled = false;
+		}
+
+		if (!isNumsEqual) {
+			currDisplay.textContent = currDisplay.textContent.slice(0, -1);
+
+			if (!backspace) currDisplay.textContent = "0";
+		}
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
+		isNumsEqual = true;
+
 		if (operator && !isPrevOperator) {
 			displayResult();
 		}
-		// if (currDisplay.textContent !== "nuh uh") {
-		// 	operator = digit;
-		// 	prevDisplay.innerHTML = `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
-		// }
 		if (!isPrevOperator) {
 			isPrevOperator = true;
 		}
@@ -142,6 +154,7 @@ const populateDisplay = (button) => {
 			prevDisplay.innerHTML.split("<")[0] === currDisplay.textContent
 		) {
 			currDisplay.textContent = digit;
+			isNumsEqual = !isNumsEqual;
 		} else {
 			currDisplay.textContent += digit;
 		}
@@ -150,7 +163,7 @@ const populateDisplay = (button) => {
 		if (isPrevEquals) {
 			allClear();
 			currDisplay.textContent = "";
-		} else if (!checkForPeriod()) {
+		} else if (!checkForPeriod(currDisplay.textContent)) {
 			period.disabled = false;
 		}
 		currDisplay.textContent += digit;
