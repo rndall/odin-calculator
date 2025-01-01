@@ -9,6 +9,7 @@ let secondVal = null;
 const defaultVal = "0";
 currDisplay.textContent = defaultVal;
 let isPrevOperator = false;
+let isPrevEquals = false;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -81,9 +82,14 @@ const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
 
-	if (digit === "=") {
+	if (isPrevEquals && !isOperator) {
+		allClear();
+		isPrevEquals = false;
+		if (digit !== "AC") currDisplay.textContent = digit;
+	} else if (digit === "=") {
 		if (operator) {
 			displayResult();
+			isPrevEquals = true;
 		}
 	} else if (digit === "AC") {
 		allClear();
@@ -98,6 +104,7 @@ const populateDisplay = (button) => {
 		if (!isPrevOperator) {
 			isPrevOperator = !isPrevOperator;
 		}
+		isPrevEquals = false;
 	} else if (isPrevOperator) {
 		currDisplay.textContent = digit;
 		isPrevOperator = !isPrevOperator;
