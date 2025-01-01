@@ -55,26 +55,30 @@ const setNumberValues = () => {
 	[firstVal, secondVal] = [parts[0], parts[1].split("<")[0]];
 };
 
+const displayResult = (digit) => {
+	if (prevDisplay.textContent) {
+		prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
+		setNumberValues();
+
+		if (firstVal && operator && secondVal) {
+			if (operator === "÷" && secondVal === "0") {
+				currDisplay.textContent = "nuh uh";
+			} else {
+				currDisplay.textContent = operate(operator, +firstVal, +secondVal);
+				operator = firstVal = secondVal = null;
+			}
+
+			isPrevOperator = false;
+		}
+	}
+};
+
 const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
 
 	if (digit === "=") {
-		if (prevDisplay.textContent) {
-			prevDisplay.innerHTML += `${currDisplay.textContent}<span style='margin-inline: 4px'>${digit}</span>`;
-			setNumberValues();
-
-			if (firstVal && operator && secondVal) {
-				if (operator === "÷" && secondVal === "0") {
-					currDisplay.textContent = "nuh uh";
-				} else {
-					currDisplay.textContent = operate(operator, +firstVal, +secondVal);
-					operator = firstVal = secondVal = null;
-				}
-
-				isPrevOperator = false;
-			}
-		}
+		displayResult(digit);
 	} else if (digit === "AC") {
 		allClear();
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
