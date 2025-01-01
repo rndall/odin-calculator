@@ -2,6 +2,7 @@ const display = document.querySelector("#display");
 const prevDisplay = document.querySelector("#previous");
 const currDisplay = document.querySelector("#current");
 const buttons = document.querySelectorAll("button");
+const period = document.querySelector("#period");
 
 let operator = null;
 let firstVal = null;
@@ -47,6 +48,8 @@ const allClear = () => {
 	defaultPrevDisplay();
 	defaultCurrDisplay();
 	isPrevOperator = false;
+	period.disabled = false;
+	isPrevEquals = false;
 };
 
 const setNumberValues = () => {
@@ -74,18 +77,36 @@ const displayResult = () => {
 			}
 
 			isPrevOperator = false;
+			period.disabled = false;
 		}
 	}
 };
+
+const checkForPeriod = () => currDisplay.textContent.includes(".");
 
 const populateDisplay = (button) => {
 	const digit = button.textContent;
 	const isOperator = button.classList.contains("operator");
 
-	if (isPrevEquals && !isOperator) {
+	if (digit === ".") {
+		if (isPrevEquals) {
+			defaultPrevDisplay();
+			currDisplay.textContent = "0.";
+		} else if (
+			prevDisplay.innerHTML.split("<")[0] === currDisplay.textContent
+		) {
+			currDisplay.textContent = "0.";
+		} else {
+			currDisplay.textContent += digit;
+		}
+		isPrevEquals = false;
+		button.disabled = true;
+	} else if (isPrevEquals && !isOperator && button.disabled) {
 		allClear();
 		isPrevEquals = false;
-		if (digit !== "AC") currDisplay.textContent = digit;
+		if (digit !== "AC") {
+			currDisplay.textContent = digit;
+		}
 	} else if (digit === "=") {
 		if (operator) {
 			displayResult();
@@ -105,10 +126,21 @@ const populateDisplay = (button) => {
 			isPrevOperator = !isPrevOperator;
 		}
 		isPrevEquals = false;
+		period.disabled = false;
 	} else if (isPrevOperator) {
-		currDisplay.textContent = digit;
+		if (prevDisplay.innerHTML.split("<")[0] === currDisplay.textContent) {
+			currDisplay.textContent = digit;
+		} else {
+			currDisplay.textContent += digit;
+		}
 		isPrevOperator = !isPrevOperator;
 	} else {
+		if (!checkForPeriod()) {
+			period.disabled = false;
+		} else if (isPrevEquals) {
+			allClear();
+			currDisplay.textContent = "";
+		}
 		currDisplay.textContent += digit;
 	}
 };
