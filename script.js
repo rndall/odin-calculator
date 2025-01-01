@@ -88,7 +88,7 @@ const populateDisplay = (button) => {
 	} else if (isCurrDisplayClear() && !isOperator && !isPrevOperator) {
 		currDisplay.textContent = digit;
 	} else if (isOperator) {
-		if (operator) {
+		if (operator && !isPrevOperator) {
 			displayResult();
 		}
 		operator = digit;
