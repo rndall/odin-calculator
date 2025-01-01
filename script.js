@@ -64,7 +64,11 @@ const displayResult = () => {
 			if (operator === "÷" && secondVal === "0") {
 				currDisplay.textContent = "nuh uh";
 			} else {
-				currDisplay.textContent = operate(operator, +firstVal, +secondVal);
+				currDisplay.textContent = +operate(
+					operator,
+					+firstVal,
+					+secondVal,
+				).toFixed(6);
 				operator = firstVal = secondVal = null;
 			}
 
